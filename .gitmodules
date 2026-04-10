@@ -1,0 +1,3 @@
+[submodule "Source/Darkthorn.Quest.Client.Assets"]
+	path = Source/Darkthorn.Quest.Client.Assets
+	url = https://github.com/XerShade/Darkthorn.Quest.Assets.git

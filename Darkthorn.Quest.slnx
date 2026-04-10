@@ -1,2 +1,9 @@
 <Solution>
+  <Folder Name="/Applications/">
+    <Project Path="Applications/Darkthorn.Quest.Client.Desktop/Darkthorn.Quest.Client.Desktop.csproj" Id="85b4f29c-348c-4eca-8012-aaec938d9f6e" />
+  </Folder>
+  <Folder Name="/Source/">
+    <Project Path="Source/Darkthorn.Quest.Client.Assets/Darkthorn.Quest.Client.Assets.shproj" Id="7e849c0d-71b1-46be-b5d3-36159c46af47" />
+    <Project Path="Source/Darkthorn.Quest.Client/Darkthorn.Quest.Client.shproj" Id="1901b012-62b1-4e70-af42-e67afdf8ad1c" />
+  </Folder>
 </Solution>

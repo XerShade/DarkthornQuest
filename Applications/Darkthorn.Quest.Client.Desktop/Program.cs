@@ -1,0 +1,1 @@
+﻿new Darkthorn.Quest.Client.GameThread().Run();
