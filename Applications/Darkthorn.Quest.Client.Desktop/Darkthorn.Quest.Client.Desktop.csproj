@@ -23,6 +23,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="9.1.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="MonoGame.Extended" Version="5.5.0" />
     <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="5.5.0" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*" />
