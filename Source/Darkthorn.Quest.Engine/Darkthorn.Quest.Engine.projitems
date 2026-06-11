@@ -9,6 +9,8 @@
     <Import_RootNamespace>Darkthorn.Quest.Engine</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Enumerations\Platform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Injectors\IInjector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\InjectorService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IInjectorService.cs" />
   </ItemGroup>
