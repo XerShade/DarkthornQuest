@@ -1,10 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Darkthorn.Quest.Game.World;
-using Darkthorn.Quest.Game.World.Entities;
-using Darkthorn.Quest.Game.World.Entities.Factories;
-using Darkthorn.Quest.Game.World.Systems;
-using Microsoft.Extensions.DependencyInjection;
+using Darkthorn.Quest.Engine.Services;
+using Darkthorn.Quest.Engine.Services.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,17 +13,17 @@ namespace Darkthorn.Quest.Engine.Game;
 
 public class GameLifecycle : GameBase
 {
+    protected IInjectorService InjectorService { get; private set; }
     protected ContainerBuilder Builder { get; private set; }
     protected IServiceProvider Provider { get; private set; }
 
     protected GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
     protected SpriteBatch SpriteBatch { get; private set; }
 
-    protected WorldManager WorldManager { get; private set; }
-    protected PlayerEntity Player { get; private set; }
-
     public GameLifecycle()
     {
+        this.InjectorService = new InjectorService().AddAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
         this.Builder = new();
         this.GraphicsDeviceManager = new GraphicsDeviceManager(this);
         this.Content.RootDirectory = "Assets";
@@ -53,16 +50,13 @@ public class GameLifecycle : GameBase
 
     protected override void BeginRun()
     {
-        _ = this.Builder.RegisterType<WorldManager>().As<WorldManager>().SingleInstance();
-        _ = this.Builder.RegisterType<PlayerEntityFactory>().As<PlayerEntityFactory>().InstancePerDependency();
-        _ = this.Builder.RegisterType<MovementSystem>().AsImplementedInterfaces().InstancePerDependency();
-        _ = this.Builder.RegisterType<InputSystem>().AsImplementedInterfaces().InstancePerDependency();
-        _ = this.Builder.RegisterType<RenderSystem>().AsImplementedInterfaces().InstancePerDependency();
+        this.InjectorService.ExecuteInjectors<IGameRegisterServicesInjector>(injector => injector.OnRegisterServices(this.Builder));
 
         this.Provider = new AutofacServiceProvider(this.Builder.Build());
 
-        this.WorldManager = this.Provider.GetRequiredService<WorldManager>();
-        this.Player = this.Provider.GetRequiredService<PlayerEntityFactory>().Spawn();
+        this.InjectorService.ExecuteInjectors<IGameConfigureServicesInjector>(injector => injector.OnConfigureServices(this.Provider));
+
+        _ = this.InjectorService.SetServiceProvider(this.Provider);
 
         base.BeginRun();
     }
@@ -74,13 +68,9 @@ public class GameLifecycle : GameBase
             this.Exit();
         }
 
-        if (Keyboard.GetState().IsKeyDown(Keys.Space))
-        {
-            this.Player.Despawn();
-            this.Player = this.Provider.GetRequiredService<PlayerEntityFactory>().Spawn();
-        }
+        this.InjectorService.ExecuteInjectors<IGameInputInjector>(injector => injector.HandleInput(gameTime, Keyboard.GetState(), Mouse.GetState()));
 
-        this.WorldManager.Update(gameTime);
+        this.InjectorService.ExecuteInjectors<IGameUpdateInjector>(injector => injector.Update(gameTime));
 
         base.Update(gameTime);
     }
@@ -91,7 +81,7 @@ public class GameLifecycle : GameBase
 
         this.SpriteBatch.Begin();
 
-        this.WorldManager.Draw(gameTime);
+        this.InjectorService.ExecuteInjectors<IGameDrawInjector>(injector => injector.Draw(gameTime, this.SpriteBatch));
 
         this.SpriteBatch.End();
 

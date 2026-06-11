@@ -13,6 +13,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\VelocityComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Factories\PlayerEntityFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\PlayerEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Injectors\GameWorldInjector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Injectors\GameWorldServicesInjector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\InputSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\MovementSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\RenderSystem.cs" />
