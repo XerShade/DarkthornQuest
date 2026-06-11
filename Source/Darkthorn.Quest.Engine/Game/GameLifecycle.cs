@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using GameBase = Microsoft.Xna.Framework.Game;
 
-namespace Darkthorn.Quest.Client;
+namespace Darkthorn.Quest.Engine.Game;
 
-public class GameThread : GameBase
+public class GameLifecycle : GameBase
 {
     protected ContainerBuilder Builder { get; private set; }
     protected IServiceProvider Provider { get; private set; }
@@ -25,7 +25,7 @@ public class GameThread : GameBase
     protected WorldManager WorldManager { get; private set; }
     protected PlayerEntity Player { get; private set; }
 
-    public GameThread()
+    public GameLifecycle()
     {
         this.Builder = new();
         this.GraphicsDeviceManager = new GraphicsDeviceManager(this);

@@ -1,1 +1,1 @@
-﻿new Darkthorn.Quest.Client.GameThread().Run();
+﻿new Darkthorn.Quest.Engine.Game.GameLifecycle().Run();
