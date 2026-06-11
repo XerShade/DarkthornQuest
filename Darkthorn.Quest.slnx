@@ -5,6 +5,7 @@
   <Folder Name="/Source/">
     <Project Path="Source/Darkthorn.Quest.Client.Assets/Darkthorn.Quest.Client.Assets.shproj" Id="7e849c0d-71b1-46be-b5d3-36159c46af47" />
     <Project Path="Source/Darkthorn.Quest.Client/Darkthorn.Quest.Client.shproj" Id="1901b012-62b1-4e70-af42-e67afdf8ad1c" />
+    <Project Path="Source/Darkthorn.Quest.Engine/Darkthorn.Quest.Engine.shproj" Id="da2cbda6-df5d-4375-a4fd-7fc915f0cf41" />
     <Project Path="source/Darkthorn.Quest.Game.World/Darkthorn.Quest.Game.World.shproj" Id="faa6ba00-4a0c-42b5-a21c-3a4867fa7d14" />
   </Folder>
 </Solution>
