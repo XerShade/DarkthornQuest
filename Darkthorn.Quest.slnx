@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/.Documentation/">
+    <File Path="Documentation/Core-Systems-Roadmap.md" />
+  </Folder>
   <Folder Name="/Applications/">
     <Project Path="Applications/Darkthorn.Quest.Client.Desktop/Darkthorn.Quest.Client.Desktop.csproj" Id="85b4f29c-348c-4eca-8012-aaec938d9f6e" />
   </Folder>
