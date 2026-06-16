@@ -2,6 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Darkthorn.Quest.Engine.Services;
 using Darkthorn.Quest.Engine.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,6 +20,7 @@ public class GameLifecycle : GameBase
 
     protected GraphicsDeviceManager GraphicsDeviceManager { get; private set; }
     protected SpriteBatch SpriteBatch { get; private set; }
+    protected IGameStateService GameState { get; private set; } = default!;
 
     public GameLifecycle()
     {
@@ -36,6 +38,7 @@ public class GameLifecycle : GameBase
     protected override void Initialize()
     {
         _ = this.Builder.RegisterInstance(this.GraphicsDevice).As<GraphicsDevice>().SingleInstance();
+        _ = this.Builder.RegisterType<GameStateService>().As<IGameStateService>().SingleInstance();
 
         base.Initialize();
     }
@@ -57,6 +60,9 @@ public class GameLifecycle : GameBase
         this.InjectorService.ExecuteInjectors<IGameConfigureServicesInjector>(injector => injector.OnConfigureServices(this.Provider));
 
         _ = this.InjectorService.SetServiceProvider(this.Provider);
+
+        this.GameState = this.Provider.GetRequiredService<IGameStateService>();
+        this.GameState.ChangeState(Enumerations.GameState.Menu);
 
         base.BeginRun();
     }
